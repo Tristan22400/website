@@ -140,7 +140,7 @@ Run these commands inside the Conda environment.
 
 ### Development
 
-Start the local development server at `http://localhost:4321`:
+Start the local development server at `http://localhost:4321/website/`:
 
 ```bash
 conda run -n personal-website npm run dev
@@ -171,6 +171,9 @@ conda run -n personal-website npm run build
 Deployment is fully automated via **GitHub Actions** using the `.github/workflows/deploy.yml` workflow.
 
 - **Trigger**: Pushing to the `main` branch.
+- **Base Path**: The site is deployed to a subpath `/website/` (e.g. `tristan22400.github.io/website/`).
+  - **Configuration**: `astro.config.mjs` sets `base: '/website'`.
+  - **Usage**: All internal links and assets must use `import.meta.env.BASE_URL` or relative paths to correctly resolve in production.
 - **Process**:
   1.  Sets up Miniforge (Conda).
   2.  Installs dependencies.
