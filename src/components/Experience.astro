@@ -1,0 +1,101 @@
+---
+const education = [
+  {
+    institution: "ENS Paris-Saclay",
+    degree: "MSc in Mathematics, Vision and Learning (MVA)",
+    period: "2025-2026",
+    details: "Europe's top-ranked master's program for AI."
+  },
+  {
+    institution: "École des Ponts ParisTech",
+    degree: "MSc in Mathematics and Informatics",
+    period: "2020-2025",
+    details: "GPA: 3.82/4"
+  },
+  {
+    institution: "École Polytechnique",
+    degree: "Master in Water, Air Pollution, and Energies",
+    period: "2023-2024",
+    details: "GPA: 4/4, Top 5"
+  },
+  {
+    institution: "Université Paris Dauphine-PSL",
+    degree: "Bachelor in Applied Economics",
+    period: "2021-2022",
+    details: "GPA: 3.51/4"
+  }
+];
+
+const experience = [
+  {
+    role: "Research Engineer",
+    company: "GAEL, Univ. Grenoble-Alpes",
+    period: "2025",
+    details: "Python-based Oil & Gas Modeling."
+  },
+  {
+    role: "Research Intern",
+    company: "GAEL, Univ. Grenoble-Alpes",
+    period: "2024",
+    details: "Data Pipeline Development for Energy Efficiency."
+  },
+  {
+    role: "Computational Research Intern in IAM",
+    company: "Univ. of Valladolid",
+    period: "2024",
+    details: "Refactoring Material and Energy Modules."
+  },
+  {
+    role: "Smart Contract Hacker",
+    company: "Morpho Labs",
+    period: "2023",
+    details: "Security Audits for DeFi ($10B+ TVL) using Foundry."
+  }
+];
+---
+
+<section class="py-12 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Experience & Education</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Education Column -->
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+          <svg class="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+          Education
+        </h3>
+        <div class="space-y-8">
+          {education.map((item) => (
+            <div class="relative pl-6 border-l-2 border-indigo-200">
+              <div class="absolute w-3 h-3 bg-indigo-600 rounded-full -left-[7px] top-1.5 ring-4 ring-white"></div>
+              <h4 class="text-lg font-bold text-gray-900">{item.institution}</h4>
+              <p class="text-indigo-600 font-medium">{item.degree}</p>
+              <span class="text-sm text-gray-500">{item.period}</span>
+              <p class="text-gray-600 mt-1 text-sm">{item.details}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Experience Column -->
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+          <svg class="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          Professional Experience
+        </h3>
+        <div class="space-y-8">
+          {experience.map((item) => (
+            <div class="relative pl-6 border-l-2 border-indigo-200">
+              <div class="absolute w-3 h-3 bg-indigo-600 rounded-full -left-[7px] top-1.5 ring-4 ring-white"></div>
+              <h4 class="text-lg font-bold text-gray-900">{item.role}</h4>
+              <p class="text-indigo-600 font-medium">{item.company}</p>
+              <span class="text-sm text-gray-500">{item.period}</span>
+              <p class="text-gray-600 mt-1 text-sm">{item.details}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
