@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  technologies: string[];
+  year: number;
+  link?: string;
+}
+
+const { title, description, image, technologies, year, link } = Astro.props;
+---
+
+<div
+  class="project-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+  data-technologies={JSON.stringify(technologies)}
+>
+  {image && (
+    <img src={image} alt={title} class="w-full h-48 object-cover" loading="lazy" />
+  )}
+  <div class="p-6">
+    <h3 class="text-xl font-bold mb-2 text-gray-900">{title}</h3>
+    <p class="text-gray-600 mb-4">{description}</p>
+    <div class="flex flex-wrap gap-2 mb-4">
+      {technologies.map(tech => (
+        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
+          {tech}
+        </span>
+      ))}
+    </div>
+    <div class="text-sm text-gray-500 mb-4">Year: {year}</div>
+    {link && (
+      <a href={link} target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 font-medium">
+        View Project &rarr;
+      </a>
+    )}
+  </div>
+</div>

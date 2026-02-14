@@ -1,0 +1,22 @@
+---
+interface Props {
+  filter: string;
+  label: string;
+  isActive?: boolean;
+}
+
+const { filter, label, isActive = false } = Astro.props;
+---
+
+<button
+  class:list={[
+    "filter-btn px-4 py-2 rounded-full border border-gray-300 text-sm font-medium focus:outline-none ring-offset-2 focus:ring-2 focus:ring-indigo-500 transition-colors duration-200",
+    isActive 
+      ? "bg-indigo-100 text-indigo-800" 
+      : "bg-white text-gray-700 hover:bg-indigo-50 hover:text-indigo-800"
+  ]}
+  data-filter={filter}
+  aria-pressed={isActive}
+>
+  {label}
+</button>

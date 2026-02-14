@@ -1,16 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Experience from '../components/Experience.astro';
+import { Image } from 'astro:assets';
+import profileImage from '../assets/profile.jpg';
 ---
 
 <Layout title="Home | Tristan Martin">
 	<!-- Hero Section -->
-	<div class="flex flex-col items-center justify-center py-20 bg-white">
+	<section class="flex flex-col items-center justify-center py-20 bg-white" aria-label="Introduction">
 		<div class="max-w-3xl w-full text-center px-4">
-			<img
-				src="/profile.jpg"
+			<Image
+				src={profileImage}
 				alt="Tristan Martin"
 				class="w-40 h-40 rounded-full mx-auto mb-8 object-cover border-4 border-gray-100 shadow-lg"
+				quality="mid"
+				loading="eager"
 			/>
 			<h1 class="text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Tristan Martin</h1>
 			<p class="text-2xl text-indigo-600 font-medium mb-8">AI Researcher & Engineer</p>

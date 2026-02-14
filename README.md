@@ -1,70 +1,89 @@
-# Professional AI Researcher Portfolio
+# Personal Portfolio Website (Astro + Tailwind + Playwright)
 
-This is the source code for the personal portfolio website of **Tristan Martin**, an MSc Student in Mathematics, Vision, and Learning (MVA). The site is designed to showcase research projects, publications, and professional experience to Big Tech recruiters and research labs.
+## 1. Project Overview & Context
 
-## 1. Project Overview & Tech Stack
+This repository hosts the professional portfolio website for **Tristan Martin**, an AI Researcher and MSc student in Mathematics, Vision, and Learning (MVA) at ENS Paris-Saclay.
 
-This project is built with a focus on **performance, reproducibility, and rigorous testing**.
+### Core Technologies
 
-- **Astro**: Static Site Generation (SSG) for lightning-fast load times.
-- **Tailwind CSS**: Utility-first styling for a clean, "Big Tech" aesthetic.
-- **Playwright**: End-to-End (E2E) testing for navigation, content validation, and mobile responsiveness.
-- **GitHub Actions**: Automated CI/CD pipeline for building, testing, and deploying to GitHub Pages.
+- **Astro**: Static Site Generation (SSG) for zero-JavaScript runtime performance by default.
+- **Tailwind CSS**: Utility-first CSS framework for rapid, responsive styling.
+- **Playwright**: End-to-End (E2E) testing framework to ensure site reliability.
+- **GitHub Actions**: CI/CD pipeline for automated testing and deployment to GitHub Pages.
+- **Conda**: Strict environment management for reproducibility.
 
 ---
 
 ## 2. Environment Setup (Strict Rules)
 
-> [!IMPORTANT]
-> This project uses **Conda** for strict environment management.
-> **DO NOT** use global `npm` or `node` installations. All commands must be run within the activated Conda environment.
+**WARNING FOR AI AGENTS & DEVELOPERS:**
+
+> Do not use global `npm` or `Node` installations. All `npm` commands must be executed within the activated Conda environment to ensure dependency consistency.
+
+### Prerequisite
+
+Ensure [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/) is installed.
 
 ### Initialization
 
-To set up the environment for the first time:
+1.  **Create the environment** using the provided `environment.yml` file:
 
-```bash
-# Create the environment from the lock file
-conda env create -f environment.yml
+    ```bash
+    conda env create -f environment.yml
+    ```
 
-# Activate the environment
-conda activate personal-website
-```
+2.  **Activate the environment**:
 
-### Updating Dependencies
+    ```bash
+    conda activate personal-website
+    ```
 
-If you modify `environment.yml`, update your environment:
-
-```bash
-conda env update -f environment.yml --prune
-```
+3.  **Update the environment** (if `environment.yml` changes):
+    ```bash
+    conda env update -f environment.yml --prune
+    ```
 
 ---
 
-## 3. Project Architecture
+## 3. Project Architecture & File Tree
 
-The project follows a standard Astro structure with strict separation of concerns:
+This project follows a canonical Astro structure with strict separation of concerns.
 
 ```text
-├── .github/workflows/    # CI/CD configuration (deploy.yml)
-├── public/               # Static assets (images, favicon, CV)
+/
+├── .github/workflows/   # GitHub Actions CI/CD configuration
+│   └── deploy.yml       # Deploys to GitHub Pages on push to main
+├── public/              # Static assets (fonts, icons, unoptimized images)
 ├── src/
-│   ├── components/       # Reusable UI components
-│   │   ├── Experience.astro  # Timeline component
-│   │   ├── Navbar.astro      # Responsive navigation
-│   │   └── Footer.astro      # Site footer
-│   ├── content/          # Data layer (Markdown + Zod schemas)
-│   │   ├── projects/         # Project markdown files
-│   │   └── publications/     # Publication markdown files
-│   ├── layouts/          # Global HTML shell (Layout.astro)
-│   ├── pages/            # File-based routing
-│   │   ├── index.astro       # Home page
-│   │   ├── projects.astro    # Projects listing
-│   │   ├── publications.astro# Publications listing
-│   │   ├── contact.astro     # Contact page
-│   │   └── 404.astro         # Custom error page
-│   └── styles/           # Global CSS (Tailwind imports)
-└── tests/                # Playwright E2E test suites
+│   ├── assets/          # Optimal images processed by Astro (e.g., profile.jpg)
+│   ├── components/      # Reusable UI components (Typed via Props)
+│   │   ├── Experience.astro   # Timeline component
+│   │   ├── FilterButton.astro # Interactive filter button
+│   │   ├── Footer.astro       # Global footer
+│   │   ├── Navbar.astro       # Global navigation
+│   │   ├── ProjectCard.astro  # Project display card
+│   │   └── PublicationItem.astro # Publication display item
+│   ├── content/         # Data layer (Markdown + Zod schemas)
+│   │   ├── config.ts          # Zod schema definitions
+│   │   ├── projects/          # Project markdown files
+│   │   └── publications/      # Publication markdown files
+│   ├── layouts/         # Global HTML shells
+│   │   └── Layout.astro       # Base layout (Head, Meta, Global Styles)
+│   ├── pages/           # File-based routing
+│   │   ├── index.astro        # Home page
+│   │   ├── projects.astro     # Projects filterable list
+│   │   ├── publications.astro # Publications filterable list
+│   │   ├── contact.astro      # Contact page
+│   │   └── 404.astro          # Custom Error page
+│   └── styles/
+│       └── global.css   # Tailwind directives & custom generic styles
+├── tests/               # Playwright E2E test suites
+│   └── e2e.spec.ts      # Comprehensive navigation & functionality tests
+├── astro.config.mjs     # Astro configuration
+├── environment.yml      # Conda environment definition
+├── package.json         # NPM scripts and dependencies
+├── playwright.config.ts # Playwright configuration
+└── tailwind.config.mjs  # Tailwind configuration
 ```
 
 ---
@@ -73,74 +92,93 @@ The project follows a standard Astro structure with strict separation of concern
 
 ### Adding Content
 
-This project uses **Astro Content Collections**. To add new items, create Markdown files in `src/content/`.
+This site uses **Astro Content Collections**. Data is stored in Markdown files within `src/content/`.
 
-#### Projects
+#### Projects (`src/content/projects/*.md`)
 
-Create a file in `src/content/projects/` (e.g., `new-project.md`).
-**Required Frontmatter:**
+Create a new Markdown file. The frontmatter must strictly adhere to this Zod schema:
 
 ```yaml
 ---
 title: "Project Title"
-description: "Brief description of the project."
-technologies: ["Python", "PyTorch", "Astro"]
-year: 2024
-link: "https://github.com/..." # Optional
-image: "/images/project.png" # Optional
+description: "A concise description of the project."
+technologies: ["Python", "PyTorch", "Astro"] # Array of strings
+year: 2024 # Integer
+link: "https://..." # Optional: External link
+image: "/path/to/img" # Optional: Image path
 ---
+Main content body (optional, currently unused in card view but available).
 ```
 
-#### Publications
+#### Publications (`src/content/publications/*.md`)
 
-Create a file in `src/content/publications/` (e.g., `paper.md`).
-**Required Frontmatter:**
+Create a new Markdown file. The frontmatter must strictly adhere to this Zod schema:
 
 ```yaml
 ---
 title: "Paper Title"
-authors: ["Tristan Martin", "Co-author 1"]
+authors: ["T. Martin", "Co-author"]
 year: 2024
 type: "conference" # Enum: 'conference', 'journal', 'workshop', 'thesis', 'other'
-conference: "NeurIPS 2024" # Optional
-link: "https://arxiv.org/..." # Optional
+conference: "NeurIPS" # Optional (or use journal)
+link: "https://..." # Optional
 ---
 ```
 
-### CV Management
+### CV Routing
 
-The CV link in the Navbar points to an external Google Drive URL. To update it:
+The CV link is **external** and maintained in `src/components/Navbar.astro`.
 
-1.  Open `src/components/Navbar.astro`.
-2.  Locate the `links` array.
-3.  Update the `href` for the 'CV' item.
+- To update the CV, change the `href` in the `links` array in `Navbar.astro`.
+- Do **not** upload a PDF to the repo unless explicitly requested; currently, it points to a Google Drive file.
 
 ---
 
 ## 5. Available Commands
 
-All commands must be executed from the project root within the Conda environment.
+Run these commands inside the Conda environment.
 
-| Command                                             | Description                                              |
-| :-------------------------------------------------- | :------------------------------------------------------- |
-| `conda run -n personal-website npm run dev`         | Starts the local development server at `localhost:4321`. |
-| `conda run -n personal-website npx playwright test` | Runs the full suite of E2E tests (headless).             |
-| `conda run -n personal-website npm run build`       | Builds the static site for production into `dist/`.      |
+### Development
+
+Start the local development server at `http://localhost:4321`:
+
+```bash
+conda run -n personal-website npm run dev
+```
+
+### Testing
+
+Run the Playwright End-to-End test suite:
+
+```bash
+conda run -n personal-website npx playwright test
+```
+
+### Production Build
+
+Build the static site into the `dist/` directory:
+
+```bash
+conda run -n personal-website npm run build
+```
 
 ---
 
-## 6. CI/CD & Deployment
+## 6. CI/CD & Deployment Workflow
 
-Deployment is **fully automated** via GitHub Actions.
+### Deployment Strategy
 
-- **Workflow File**: `.github/workflows/deploy.yml`
+Deployment is fully automated via **GitHub Actions** using the `.github/workflows/deploy.yml` workflow.
+
 - **Trigger**: Pushing to the `main` branch.
 - **Process**:
   1.  Sets up Miniforge (Conda).
   2.  Installs dependencies.
-  3.  Runs Playwright tests.
-  4.  Builds the site.
-  5.  Deploys to GitHub Pages.
+  3.  Runs Playwright tests. **(Deployment halts if tests fail)**.
+  4.  Builds the Astro site.
+  5.  Deploys the `dist/` artifact to GitHub Pages.
 
-> [!WARNING]
-> **DO NOT** manually build and push the `dist/` folder to a `gh-pages` branch. Always push source code to `main` and let the CI/CD pipeline handle the deployment.
+### Critical Warnings
+
+- **Do not** manually build and push the `dist/` folder to a `gh-pages` branch. The action handles this.
+- Ensure **GitHub Pages** source is set to **GitHub Actions** in the repository settings.
