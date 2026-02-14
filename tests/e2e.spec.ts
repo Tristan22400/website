@@ -5,7 +5,7 @@ test.describe('Navigation', () => {
     // Skip this test on mobile as desktop links are hidden
     test.skip(isMobile, 'Desktop navigation is hidden on mobile');
 
-    await page.goto('/');
+    await page.goto('./');
     await expect(page).toHaveTitle(/Home/);
 
     // Check CV link instead of navigating.
@@ -31,7 +31,7 @@ test.describe('Navigation', () => {
     // Only run on mobile
     test.skip(!isMobile, 'Mobile menu is only visible on mobile');
     
-    await page.goto('/');
+    await page.goto('./');
     
     // Check that desktop menu is hidden
     await expect(page.locator('.hidden.sm\\:ml-6')).toBeHidden(); 
@@ -58,7 +58,7 @@ test.describe('Navigation', () => {
 
 test.describe('Assets', () => {
   test('profile picture should load', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     const img = page.locator('img[alt="Tristan Martin"]');
     await expect(img).toBeVisible();
     
@@ -70,7 +70,7 @@ test.describe('Assets', () => {
 
 test.describe('Functional Features', () => {
   test('projects filtering works', async ({ page }) => {
-    await page.goto('/projects');
+    await page.goto('./projects');
     
     // Initially all projects visible
     const cards = page.locator('.project-card');
@@ -90,7 +90,7 @@ test.describe('Functional Features', () => {
   });
   
   test('publications filtering works', async ({ page }) => {
-    await page.goto('/publications');
+    await page.goto('./publications');
     const items = page.locator('.publication-item');
     // We removed all publications, so expect 0
     await expect(items).toHaveCount(0);
