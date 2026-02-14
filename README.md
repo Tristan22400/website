@@ -2,7 +2,7 @@
 
 ## 1. Project Overview & Context
 
-This repository hosts the professional portfolio website for **Tristan Martin**, an AI Researcher and MSc student in Mathematics, Vision, and Learning (MVA) at ENS Paris-Saclay.
+This repository hosts the professional portfolio website for **Tristan Martin**, a MSc student in Mathematics, Vision, and Learning (MVA) at ENS Paris-Saclay.
 
 ### Core Technologies
 
