@@ -2,6 +2,7 @@
 
 ## 1. Project Overview & Context
 
+Always use the conda environment to run any command (personal-website).
 This repository hosts the professional portfolio website for **Tristan Martin**, a MSc student in Mathematics, Vision, and Learning (MVA) at ENS Paris-Saclay.
 
 ### Core Technologies

@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import ProjectCard from '../components/ProjectCard.astro';
 import FilterButton from '../components/FilterButton.astro';
 
-const projects = await getCollection('projects');
+const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
 const allTechnologies = [...new Set(projects.flatMap(p => p.data.technologies))];
 ---
 
@@ -31,6 +31,7 @@ const allTechnologies = [...new Set(projects.flatMap(p => p.data.technologies))]
 					technologies={project.data.technologies}
 					year={project.data.year}
 					link={project.data.link}
+					slug={project.slug}
 				/>
 			</div>
 		))}

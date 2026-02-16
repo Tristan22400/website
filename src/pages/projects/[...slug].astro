@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import 'katex/dist/katex.min.css';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={`${entry.data.title} | Projects`}>
+  <article class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold mb-4 text-gray-900">{entry.data.title}</h1>
+      <div class="flex flex-wrap gap-2 mb-4">
+        {entry.data.technologies.map((tech: string) => (
+          <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-semibold">
+            {tech}
+          </span>
+        ))}
+      </div>
+      <p class="text-xl text-gray-600 mb-6">{entry.data.description}</p>
+      
+      <div class="flex gap-4 mb-8 border-b pb-8">
+        {entry.data.link && (
+          <a 
+            href={entry.data.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Attributes
+          </a>
+        )}
+      </div>
+    </div>
+
+    <div class="prose prose-lg prose-indigo max-w-none text-gray-800">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  /* Basic styling for KaTeX if CSS not loaded automatically or for adjustments */
+  .katex { font-size: 1.1em; }
+</style>

@@ -6,33 +6,33 @@ interface Props {
   technologies: string[];
   year: number;
   link?: string;
+  slug: string;
 }
 
-const { title, description, image, technologies, year, link } = Astro.props;
+const { title, description, technologies, year, link, slug } = Astro.props;
 ---
 
-<div
-  class="project-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-  data-technologies={JSON.stringify(technologies)}
->
-  {image && (
-    <img src={image} alt={title} class="w-full h-48 object-cover" loading="lazy" />
-  )}
-  <div class="p-6">
-    <h3 class="text-xl font-bold mb-2 text-gray-900">{title}</h3>
-    <p class="text-gray-600 mb-4">{description}</p>
-    <div class="flex flex-wrap gap-2 mb-4">
-      {technologies.map(tech => (
-        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
-          {tech}
-        </span>
-      ))}
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col justify-between">
+  <div class="p-6 flex flex-col h-full">
+    <div>
+      <h3 class="text-xl font-bold mb-2 text-gray-900">
+        <a href={`/website/projects/${slug}`} class="hover:text-indigo-600 transition-colors">
+          {title}
+        </a>
+      </h3>
+      <p class="text-gray-600 mb-4 line-clamp-3">{description}</p>
+      <div class="flex flex-wrap gap-2 mb-4">
+        {technologies.map(tech => (
+          <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
+            {tech}
+          </span>
+        ))}
+      </div>
+      <div class="text-sm text-gray-500 mb-4">Year: {year}</div>
     </div>
-    <div class="text-sm text-gray-500 mb-4">Year: {year}</div>
-    {link && (
-      <a href={link} target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 font-medium">
-        View Project &rarr;
-      </a>
-    )}
+    
+    <a href={`/website/projects/${slug}`} class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center mt-auto">
+      Read More &rarr;
+    </a>
   </div>
 </div>

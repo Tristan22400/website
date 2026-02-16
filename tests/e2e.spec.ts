@@ -74,19 +74,19 @@ test.describe('Functional Features', () => {
     
     // Initially all projects visible
     const cards = page.locator('.project-card');
-    await expect(cards).toHaveCount(3); // We added 3 projects
+    await expect(cards).toHaveCount(5); // We added 5 projects
 
     // Click a filter (e.g., Python)
     await page.click('button[data-filter="Python"]');
-    // All 3 projects use Python, check visible
-    await expect(page.locator('.project-card:visible')).toHaveCount(3);
+    // All 5 projects use Python, check visible
+    await expect(page.locator('.project-card:visible')).toHaveCount(5);
 
     // Click a filter that selects fewer (e.g., Reinforcement Learning)
     await page.click('button[data-filter="Reinforcement Learning"]');
     await expect(page.locator('.project-card:visible')).toHaveCount(1);
     
     await page.click('button[data-filter="all"]');
-    await expect(page.locator('.project-card:visible')).toHaveCount(3);
+    await expect(page.locator('.project-card:visible')).toHaveCount(5);
   });
   
   test('publications filtering works', async ({ page }) => {
